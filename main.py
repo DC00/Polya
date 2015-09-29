@@ -3,6 +3,8 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.random import normal, rand
+from draw import PolygonInteractor
+from matplotlib.patches import Polygon
 
 def introduction_prompt():
     print("\nCS 4102 Final Project: A Workbench of Computational Geometry Algorithms\n")
@@ -14,7 +16,7 @@ def main_menu():
     print("Enter number of selection")
     print("1. Clear and Seed: Generate a set of new, random points for the scatter plot")
     print("2. Clear: Clear the plot of all points")
-    print("3. Place Custom Points: Will prompt user for a number n and then place n custom points")
+    print("3. Place Custom Points")
     print("Algorithms")
     print("4. Point Location")
     print("5. Range Search")
@@ -40,7 +42,20 @@ def clear():
     plt.clf()
 
 def custom():
-    print("Place custom points")
+
+    xs = [0]
+    ys = [0]
+
+    poly = Polygon(list(zip(xs, ys)), animated=True)
+
+    fig, ax = plt.subplots()
+    ax.add_patch(poly)
+    p = PolygonInteractor(ax, poly)
+    print("Press i to insert, d to delete")
+    ax.set_title('Click and drag a point to move it')
+    ax.set_xlim((-2,2))
+    ax.set_ylim((-2,2))
+    plt.show()
 
 def point_location():
     print("Enter number of points to place: ", end=' ')
