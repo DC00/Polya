@@ -3,7 +3,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.random import normal, rand
-from draw import PolygonInteractor
+from draw import customPointPlacer
 from matplotlib.patches import Polygon
 
 def introduction_prompt():
@@ -43,18 +43,17 @@ def clear():
 
 def custom():
 
-    xs = [0]
-    ys = [0]
-
-    poly = Polygon(list(zip(xs, ys)), animated=True)
+    xs = []
+    ys = []
 
     fig, ax = plt.subplots()
-    ax.add_patch(poly)
-    p = PolygonInteractor(ax, poly)
-    print("Press i to insert, d to delete")
-    ax.set_title('Click and drag a point to move it')
-    ax.set_xlim((-2,2))
-    ax.set_ylim((-2,2))
+    ax.set_xlim((-1,1))
+    ax.set_ylim((-1,1))
+    p = customPointPlacer(fig, ax, xs, ys)
+    print("Press i to insert")
+    
+    canvas = fig.canvas
+    canvas.mpl_connect('key_press_event', p.key_press_callback)
     plt.show()
 
 def point_location():
