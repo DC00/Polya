@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy.random import normal, rand
 from draw import customPointPlacer
-from matplotlib.patches import Polygon
 
 def introduction_prompt():
     print("\nCS 4102 Final Project: A Workbench of Computational Geometry Algorithms\n")
@@ -77,6 +76,8 @@ def ray_trace():
 
 def gift_wrapping():
     import vector;
+    import time
+    
     print("Convex Hull using gift wrapping method");
     global xs;
     global ys;
@@ -96,7 +97,17 @@ def gift_wrapping():
             if (angle > maxangle):
             	maxangle = angle;
             	vstart = i;
-    plt.plot([xs[vstart], xs[minind]], [ys[vstart], ys[minind]]);
+    
+    ## Plotting ##
+    plt.ion();
+    fig, ax = plt.subplots();
+    plt.scatter(xs, ys);
+    plt.plot([xs[minind], xs[vstart]], [ys[minind], ys[vstart]]);
+    fig.canvas.draw();
+    fig.canvas.flush_events();
+    plt.show();
+    time.sleep(0.5);
+    ## -------- ##
     
     # v1 is the vector from vstart->prevstart
     prevstart = minind;
@@ -104,21 +115,41 @@ def gift_wrapping():
     # v2 is the vector from vstart->v2end
     
     # 3. iterate through all the v2ends and choose the one that makes the greatest angle with v1. Set v1 to v2end_final->vstart, and repeat until we have wrapped back around to the starting index.
+    
     while (vstart != minind):
     	maxangle = -9999;
     	v2end_final = -1;
+    	save = 0;
     	for v2end in range(len(xs)):
     		if (v2end != vstart and v2end != prevstart):
     			v2 = [ xs[v2end] - xs[vstart], ys[v2end] - ys[vstart] ];
+    			
+    			## Plotting ##
+    			lines = plt.plot([xs[v2end], xs[vstart]], [ys[v2end], ys[vstart]]);
+    			plt.show();
+    			fig.canvas.draw();
+    			fig.canvas.flush_events();
+    			time.sleep(0.01);
+    			lines.pop(0).remove();
+    			plt.show();
+    			## -------- ##
+    			
     			angle = vector.angle(v1, v2);
     			if (angle > maxangle):
+    				## Plotting ##
+    				if (save != 0):
+    					save.pop(0).remove();
+    				save = plt.plot([xs[v2end], xs[vstart]], [ys[v2end], ys[vstart]]);
+    				plt.show();
+    				## -------- ##
     				maxangle = angle;
     				v2end_final = v2end;
     	plt.plot([xs[v2end_final], xs[vstart]], [ys[v2end_final], ys[vstart]]);
+    	plt.show();
     	v1 = [ xs[vstart] - xs[v2end_final], ys[vstart] - ys[v2end_final] ];
     	prevstart = vstart;
     	vstart = v2end_final;
-    plt.scatter(xs, ys);
+    plt.ioff();
     display_plot();
 
 def display_plot():
