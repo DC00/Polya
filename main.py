@@ -199,7 +199,7 @@ def grahams_scan():
 	fig.canvas.draw();
 	fig.canvas.flush_events();
 	plt.show();
-	time.sleep(0.5);
+	time.sleep(0.01);
 	## -------- ##
 	
 	# 3. While end point doesn't equal initial start point
@@ -236,7 +236,7 @@ def grahams_scan():
 			plt.show();
 			fig.canvas.draw();
 			fig.canvas.flush_events();
-			time.sleep(0.5);
+			time.sleep(0.01);
 			## -------- ##
 			
 			v1 = [ points[end].x - points[end-1].x, points[end].y - points[end-1].y ];
