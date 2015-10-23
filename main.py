@@ -118,7 +118,7 @@ def gift_wrapping():
 	fig.canvas.draw();
 	fig.canvas.flush_events();
 	plt.show();
-	time.sleep(0.5);
+	time.sleep(0.01);
 	## -------- ##
 	
 	# v1 is the vector from vstart->prevstart
@@ -141,7 +141,7 @@ def gift_wrapping():
 				plt.show();
 				fig.canvas.draw();
 				fig.canvas.flush_events();
-				time.sleep(0.1);
+				time.sleep(0.01);
 				lines.pop(0).remove();
 				plt.show();
 				## -------- ##
@@ -168,7 +168,7 @@ def grahams_scan():
 	import vector;
 	import time;
 	
-	print("Convex Hull using gift wrapping method");
+	print("Convex Hull using gift Graham's Scan");
 	global xs;
 	global ys;
 	global points;
@@ -236,7 +236,7 @@ def grahams_scan():
 			plt.show();
 			fig.canvas.draw();
 			fig.canvas.flush_events();
-			time.sleep(0.05);
+			time.sleep(0.5);
 			## -------- ##
 			
 			v1 = [ points[end].x - points[end-1].x, points[end].y - points[end-1].y ];
