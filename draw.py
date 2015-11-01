@@ -34,8 +34,8 @@ class customPointPlacer:
 			self.fig.canvas.draw();
 			self.fig.canvas.flush_events();
 		elif event.key=='r':
-			self.xs.append(event.xdata+rand(1)-0.5);
-			self.ys.append(event.ydata+rand(1)-0.5);
+			self.xs.append( (event.xdata+rand(1)-0.5)[0] );
+			self.ys.append( (event.ydata+rand(1)-0.5)[0] );
 			self.points.set_xdata(self.xs);
 			self.points.set_ydata(self.ys);
 			self.fig.canvas.draw();

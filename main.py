@@ -24,6 +24,7 @@ def main_menu():
 	print("7. Ray Tracing")
 	print("8. Gift Wrapping")
 	print("9. Grahams Scan")
+	print("10. Fortunes Algorithm")
 	print("\n0. Exit")
 	print("\n############################################################\n\n\n")
 	try:
@@ -248,7 +249,77 @@ def grahams_scan():
 			# Move previous point back by one
 		end += 1;
 	plt.ioff();
+	points = [];
+
+def fortunes():
+	import vector;
+	import time;
 	
+	print("Voronoi Diagram using Fortunes Algorithm");
+	global xs;
+	global ys;
+	global points;
+	# 2. Sort points by polar angle
+	for i in range(len(xs)):
+		newpoint = point( xs[i], ys[i] );
+		points.append(newpoint);
+	points.sort(key=lambda x: x.y, reverse=True);
+	linepos = 12;
+	## Plotting ##
+	plt.ion();
+	fig, ax = plt.subplots();
+	plt.ylim([-2, 12]);
+	plt.xlim([-2, 12]);
+	plt.scatter(xs, ys);
+	## -------- ##
+	brkbot = 0
+	brk = 0
+	parabolas = []
+	while linepos > -2:
+		linepos -= 0.05;
+
+		## Plotting ##
+		l = len(points)
+		while brk < l and linepos < points[brk].y:
+			brk += 1;
+		for pt in range(brkbot, brk):
+			# Use polyfit.
+			x1 = [points[pt].x-0.02,points[pt].x,points[pt].x+0.02]
+			y1 = [points[pt].y+1,points[pt].y,points[pt].y+1]
+			coefficients1 = np.polyfit(x1,y1,2)
+			polynomial = np.poly1d(coefficients1)
+			# Feed data into pyplot.
+			xpoints = np.linspace(points[pt].x-0.1, points[pt].x+0.1, 20)
+			# Draw the plot to the screen
+			parabolas.append( (plt.plot(xpoints,polynomial(xpoints),'-'), points[pt]) )
+		
+		for p in parabolas:
+			pt = p[1]
+			# Use polyfit.
+			x1 = [pt.x-0.02, pt.x, pt.x+0.02]
+			y1 = [pt.y+1, pt.y-0.3, pt.y+1]
+			coefficients1 = np.polyfit(x1,y1,2)
+			polynomial = np.poly1d(coefficients1)
+			# Feed data into pyplot.
+			xpoints = np.linspace(pt.x-0.1, pt.x+0.1, 20)
+			p[0][0].set_xdata(xpoints);
+			p[0][0].set_ydata(polynomial(xpoints));
+			
+		
+
+		
+		
+		sweepline = plt.plot([-2, 12], [linepos, linepos], c = 'b');
+		fig.canvas.draw();
+		fig.canvas.flush_events();
+		plt.show();
+		time.sleep(0.001);
+		sweepline.pop(0).remove();
+		## -------- ##
+		brkbot = brk;
+	points = [];
+	
+
 def display_plot():
 	plt.show()
 
@@ -272,6 +343,8 @@ def switcher(choice):
 		gift_wrapping()
 	elif choice == 9:
 		grahams_scan()
+	elif choice == 10:
+		fortunes()
 	else:
 		sys.exit(0)
 
