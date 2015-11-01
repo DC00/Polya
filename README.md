@@ -1,6 +1,7 @@
 # Polya
 Creating a toolkit for algorithms in Computational Geometry
-- Create map (2d or 3d)??
-- Menu interface
-- Range based search
-- ???
+- Menu Interface
+- 2D Map
+- Graham's Scan for convex hull
+- Gift Wrap for convex hull
+- Fortune's sweep line algorithm for Voronoi Diagrams
