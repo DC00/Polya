@@ -339,7 +339,7 @@ def kd_tree():
 	tree = kdtree(maxbinsz, emax);
 	tree.timer = 0.05;
 	## Plotting ##
-	minx, miny, maxx, maxy = -2, -2, 12, 12;
+	minx, miny, maxx, maxy = -10, -10, 10, 10;
 	## -------- ##
 	root = tree.makeTree( points, minx, miny, maxx, maxy);
 	ch = 0;
