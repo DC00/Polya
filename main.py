@@ -10,6 +10,7 @@ def introduction_prompt():
     print("\nCS 4102 Final Project: A Workbench of Computational Geometry Algorithms\n")
     print("You have the ability to populate a 2D scatter plot with random points and then\nselect from several algorithms to play with the data\n")
 
+
 def main_menu():
     choice = 0
     print("\n############################################################\n")
@@ -18,14 +19,9 @@ def main_menu():
     print("2. Clear: Clear the plot of all points")
     print("3. Place Custom Points")
     print("Algorithms")
-    print("4. Point Location")
-    print("5. Range Search")
-    print("6. Nearest Neighbor")
-    print("7. Ray Tracing")
-    print("8. Gift Wrapping")
-    print("9. Grahams Scan")
-    print("10. Fortunes Algorithm")
-    print("11. KD Tree")
+    print("4. Gift Wrapping")
+    print("5. Grahams Scan")
+    print("6. KD Tree")
     print("\n0. Exit")
     print("\n############################################################\n")
     try:
@@ -72,19 +68,6 @@ def custom():
     canvas = fig.canvas
     canvas.mpl_connect('key_press_event', p.key_press_callback)
     display_plot();
-
-def point_location():
-    print("Enter number of points to place: ", end=' ')
-    n = int(input())
-
-def range_search():
-    print("Range Search: Compute the number of points within a query region")
-
-def nearest_neighbor():
-    print("Nearest Neighbor: Compute the closest point to a query point")
-
-def ray_trace():
-    print("Ray Trace: Compute the point which first intersects a query ray")
 
 def gift_wrapping():
     import vector;
@@ -252,73 +235,6 @@ def grahams_scan():
     plt.ioff();
     points = [];
 
-def fortunes():
-    import vector;
-    import time;
-    
-    print("Voronoi Diagram using Fortunes Algorithm");
-    global xs;
-    global ys;
-    global points;
-    # 2. Sort points by polar angle
-    for i in range(len(xs)):
-        newpoint = point( xs[i], ys[i] );
-        points.append(newpoint);
-    points.sort(key=lambda x: x.y, reverse=True);
-    linepos = 12;
-    ## Plotting ##
-    plt.ion();
-    fig, ax = plt.subplots();
-    plt.ylim([-2, 12]);
-    plt.xlim([-2, 12]);
-    plt.scatter(xs, ys);
-    ## -------- ##
-    brkbot = 0
-    brk = 0
-    parabolas = []
-    while linepos > -2:
-        linepos -= 0.05;
-
-        ## Plotting ##
-        l = len(points)
-        while brk < l and linepos < points[brk].y:
-            brk += 1;
-        for pt in range(brkbot, brk):
-            # Use polyfit.
-            x1 = [points[pt].x-0.02,points[pt].x,points[pt].x+0.02]
-            y1 = [points[pt].y+1,points[pt].y,points[pt].y+1]
-            coefficients1 = np.polyfit(x1,y1,2)
-            polynomial = np.poly1d(coefficients1)
-            # Feed data into pyplot.
-            xpoints = np.linspace(points[pt].x-0.1, points[pt].x+0.1, 20)
-            # Draw the plot to the screen
-            parabolas.append( (plt.plot(xpoints,polynomial(xpoints),'-'), points[pt]) )
-        
-        for p in parabolas:
-            pt = p[1]
-            # Use polyfit.
-            x1 = [pt.x-0.02, pt.x, pt.x+0.02]
-            y1 = [pt.y+1, pt.y-0.3, pt.y+1]
-            coefficients1 = np.polyfit(x1,y1,2)
-            polynomial = np.poly1d(coefficients1)
-            # Feed data into pyplot.
-            xpoints = np.linspace(pt.x-0.1, pt.x+0.1, 20)
-            p[0][0].set_xdata(xpoints);
-            p[0][0].set_ydata(polynomial(xpoints));
-            
-        
-
-        
-        
-        sweepline = plt.plot([-2, 12], [linepos, linepos], c = 'b');
-        fig.canvas.draw();
-        fig.canvas.flush_events();
-        plt.show();
-        time.sleep(0.001);
-        sweepline.pop(0).remove();
-        ## -------- ##
-        brkbot = brk;
-    points = [];
     
 def kd_tree():
 	from kdtree import kdtree
@@ -387,26 +303,23 @@ def switcher(choice):
     elif choice == 3:
         custom()
     elif choice == 4:
-        point_location()
-    elif choice == 5:
-        range_search()
-    elif choice == 6:
-        nearest_neighbor()
-    elif choice == 7:
-        ray_trace()
-    elif choice == 8:
         gift_wrapping()
-    elif choice == 9:
+    elif choice == 5:
         grahams_scan()
-    elif choice == 10:
-        fortunes()
-    elif choice == 11:
+    elif choice == 6:
         kd_tree()
     else:
         sys.exit(0)
 
 if __name__ == "__main__":
     introduction_prompt()
+    global xs;
+    global ys;
+    xs = (rand(100)*10).tolist()
+    ys = (rand(100)*10).tolist()
+    plt.scatter(xs,ys)
+    plt.ylim([-2, 12]);
+    plt.xlim([-2, 12]);
     while True:
         choice = main_menu()
         switcher(choice)
