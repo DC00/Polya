@@ -30,9 +30,10 @@ def main_menu():
 		print("That's not an int!")
 	return choice
 
+
 """
-		 name: seed
-	  purpose: populate the plot with points
+name: seed()
+purpose: populate the plot with points
 postcondition: 100 points are added in random positions in the range 0 to 10 for x and y
 """
 def seed():
@@ -45,11 +46,7 @@ def seed():
 	plt.ylim([-2, 12]);
 	plt.xlim([-2, 12]);
 	display_plot()
-"""
-		 name: clear()
-	  purpose: 
-postcondition: 
-"""
+
 def clear():
 	print("Clearing graph...")
 	global xs;
@@ -58,10 +55,11 @@ def clear():
 	xs = [];
 	ys = [];
 	points = [];
+
 """
-		 name: 
-	  purpose: 
-postcondition: 
+name: custom()
+purpose: Place point(s) wherever your mouse is
+postcondition: Pressing 'i' will place a custom point on the plot
 """
 def custom():
 	plt.ioff();
@@ -75,6 +73,11 @@ def custom():
 	canvas.mpl_connect('key_press_event', p.key_press_callback)
 	display_plot();
 
+"""
+name: gift_wrapping()
+purpose: Find the convex hull of a set of points
+postcondition: Animates Jarvis' March finds the list of points that make up the convex hull
+"""
 def gift_wrapping():
 	try:
 		import vector;
@@ -174,6 +177,11 @@ def gift_wrapping():
 		plt.ioff();
 		plt.close("all")
 
+"""
+name: grahams_scan()
+purpose: Animate Graham's Scan algorithm and find the convex hull of a set of points
+postcondition: Uses graham's scan to find the list of points that make up the convex hull
+"""
 def grahams_scan():
 	try:
 		import vector;
@@ -285,6 +293,11 @@ def grahams_scan():
 		plt.ioff();
 		plt.close("all")
 
+"""
+name: kd_tree()
+purpose: Makes a kd tree. Also gives the option for finding the nearest neighbor
+postcondition: kd tree is created and plotted. The nearest neighbor method uses best bin first search
+"""
 def kd_tree():
 	try:
 		from kdtree import kdtree
@@ -347,7 +360,6 @@ def kd_tree():
 	except:
 		plt.ioff();
 		plt.close("all")
-
 
 def display_plot():
 	plt.show()
