@@ -15,6 +15,7 @@ def sqedEucDist(p1, p2):
 
 class kdtree:
 	def __init__(self, binsize, e):
+		self.stepmode = True
 		self.root = 0;
 		self.pts = 0;
 		self.maxbinsz = binsize;
@@ -65,7 +66,14 @@ class kdtree:
 			self.fig.canvas.draw();
 			self.fig.canvas.flush_events();
 			plt.show();
-			time.sleep(self.timer);
+			
+			if self.stepmode:
+				a = input("Press Enter to step or c to continue:")
+				if a == 'c':
+					self.stepmode = False
+					print("finishing...")
+			else:
+				time.sleep(self.timer);
 			## -------- ##
 			mid = int( (start+end)/2 );
 			if (cutdim == 0):
@@ -98,6 +106,7 @@ class kdtree:
 		return NNs;
 
 	def queuryNN(self, queury, n, root):
+		self.stepmode = True
 		distances = [];
 		NNs = [];
 		plotted = [];
@@ -139,7 +148,13 @@ class kdtree:
 					self.fig.canvas.draw();
 					self.fig.canvas.flush_events();
 					plt.show();
-					time.sleep(0.5);
+					if self.stepmode:
+						a = input("Press Enter to step or c to continue:")
+						if a == 'c':
+							self.stepmode = False
+							print("finishing...")
+					else:
+						time.sleep(self.timer);
 					cur.remove();
 					prev.remove();
 					## -------- ##

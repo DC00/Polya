@@ -83,6 +83,7 @@ def gift_wrapping():
 		print("Convex Hull using gift wrapping method");
 		global xs;
 		global ys;
+		stepmode = True;
 		# 1. Start by finding coordinate with the smallest x value "minind"
 		minval = xs[0];
 		minind = 0;
@@ -110,7 +111,13 @@ def gift_wrapping():
 		fig.canvas.draw();
 		fig.canvas.flush_events();
 		plt.show();
-		time.sleep(0.01);
+		if stepmode:
+			a = input("Press Enter to step or c to continue:")
+			if a == 'c':
+				stepmode = False
+				print("finishing...")
+		else:
+			time.sleep(0.01);
 		## -------- ##
 	
 		# v1 is the vector from vstart->prevstart
@@ -133,7 +140,13 @@ def gift_wrapping():
 					plt.show();
 					fig.canvas.draw();
 					fig.canvas.flush_events();
-					time.sleep(0.01);
+					if stepmode:
+						a = input("Press Enter to step or c to continue:")
+						if a == 'c':
+							stepmode = False
+							print("finishing...")
+					else:
+						time.sleep(0.01);
 					lines.pop(0).remove();
 					plt.show();
 					## -------- ##
@@ -153,6 +166,8 @@ def gift_wrapping():
 			v1 = [ xs[vstart] - xs[v2end_final], ys[vstart] - ys[v2end_final] ];
 			prevstart = vstart;
 			vstart = v2end_final;
+		stepmode = True
+		print("finished")
 		plt.ioff();
 		display_plot();
 	except:
@@ -168,6 +183,8 @@ def grahams_scan():
 		global xs;
 		global ys;
 		global points;
+		points = [];
+		stepmode = True;
 		# 1. Find leftmost
 		minval = xs[0];
 		minind = 0;
@@ -195,7 +212,13 @@ def grahams_scan():
 		fig.canvas.draw();
 		fig.canvas.flush_events();
 		plt.show();
-		time.sleep(0.01);
+		if stepmode:
+			a = input("Press Enter to step or c to continue:")
+			if a == 'c':
+				stepmode = False
+				print("finishing...")
+		else:
+			time.sleep(0.01);
 		## -------- ##
 	
 		# 3. While end point doesn't equal initial start point
@@ -209,7 +232,12 @@ def grahams_scan():
 			plt.show();
 			fig.canvas.draw();
 			fig.canvas.flush_events();
-			time.sleep(0.01);
+			if stepmode:
+				a = input("Press Enter to step or c to continue:")
+				if a == 'c':
+					stepmode = False
+			else:
+				time.sleep(0.01);
 			## -------- ##
 		
 			# 4. (end-1) <-v1- (end) -v2-> (end+1)
@@ -217,7 +245,7 @@ def grahams_scan():
 			v2 = [ points[end].x - points[end+1].x, points[end].y - points[end+1].y ];
 
 			angle = vector.fullangle(v2, v1);
-			while angle < 0:
+			while angle <= 0.0:
 				points.pop(end);
 				end -= 1;
 			
@@ -232,7 +260,13 @@ def grahams_scan():
 				plt.show();
 				fig.canvas.draw();
 				fig.canvas.flush_events();
-				time.sleep(0.01);
+				if stepmode:
+					a = input("Press Enter to step or c to continue:")
+					if a == 'c':
+						stepmode = False
+						print("finishing...")
+				else:
+					time.sleep(0.01);
 				## -------- ##
 			
 				v1 = [ points[end].x - points[end-1].x, points[end].y - points[end-1].y ];
@@ -243,6 +277,8 @@ def grahams_scan():
 		
 				# Move previous point back by one
 			end += 1;
+		stepmod = True
+		print("finished")
 		plt.ioff();
 		points = [];
 	except:
@@ -259,11 +295,12 @@ def kd_tree():
 		global ys;
 		global points;
 	
+		points = []
 		for i in range(len(xs)):
 			newpoint = point( xs[i], ys[i] );
 			points.append(newpoint);
-	
-		maxbinsz = 3;
+		
+		maxbinsz = int( input("Enter max bin size (integer): ") );
 		emax = 100;
 	
 		tree = kdtree(maxbinsz, emax);
@@ -272,6 +309,7 @@ def kd_tree():
 		minx, miny, maxx, maxy = -2, -2, 12, 12;
 		## -------- ##
 		root = tree.makeTree( points, minx, miny, maxx, maxy);
+		print("finished")
 		ch = 0;
 		prev = 0;
 		rectangles = 0;
@@ -301,7 +339,10 @@ def kd_tree():
 						rect.set_alpha(0.05);
 					## -------- ##
 				prev, rectangles = tree.queuryNNwrap(query, int(i[2]));
+				print("finished")
 			elif ch == 0:
+				plt.ioff();
+				points = [];
 				break;
 	except:
 		plt.ioff();
