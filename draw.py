@@ -14,7 +14,9 @@ from numpy.random import rand
 class customPointPlacer:
 	"""
 	Key-bindings
-	  'i' insert a vertex at the current position of the cursor.
+	  'i' insert a point at the current position of the cursor,
+	  'r' insert a point uniformly random in a unit square around the cursor,
+	  hold down 'i' or 'r' to place points continuosly.
 	"""
 	def __init__(self, fig, ax, xs, ys):
 		self.fig = fig;

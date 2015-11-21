@@ -7,6 +7,12 @@ import numpy;
 import heapq
 from point import point
 
+
+"""
+name: sqedEucDist()
+purpose: Get squared euclidean distance
+postcondition: squared euclidean distance between points p1 and p2 returned
+"""
 def sqedEucDist(p1, p2):
 	s = 0;
 	for d in range( 2 ):
@@ -22,6 +28,11 @@ class kdtree:
 		self.emax = e;
 		self.timer = 0.5;
 	
+	"""
+	name: maxRangeDim()
+	purpose: Get the dimension with the maximum range
+	postcondition: The dimension with the largest range in the given pointset is returned
+	"""
 	def maxRangeDim(self, points, start, end):
 		dims = 2;
 		mins = [];
@@ -42,7 +53,11 @@ class kdtree:
 			if (rnge[d] > rnge[maxd]):
 				maxd = d;
 		return maxd;
-	
+	"""
+	name: partition()
+	purpose: partition the pointset along a given dimension, plotting the partitions as they occur
+	postcondition: The pointset given by points (from start to end) will be partitioned around the median in the given dimension. For plotting purposes the rectangular region encompassing the pointset is also passed in and partitioned.
+	"""
 	def partition(self, points, start, end, cutdim, minx, miny, maxx, maxy):
 		n = kdnode();
 		n.st = start;
@@ -83,7 +98,11 @@ class kdtree:
 				n.lessChild = self.partition(points, start, mid, cutdim+1, minx, miny, maxx, e[1]);
 				n.greaterChild = self.partition(points, mid, end, cutdim+1, minx, s[1], maxx, maxy);
 		return n;
-	
+	"""
+	name: makeTree()
+	purpose: turn the pointset into the kdtree
+	postcondition: root is returned. root is the root node of the kd tree
+	"""
 	def makeTree(self, points, minx, miny, maxx, maxy):
 		## Plotting ##
 		plt.ion();
@@ -96,7 +115,11 @@ class kdtree:
 		self.root = self.partition( points, 0, len(points), cutdim, minx, miny, maxx, maxy );
 		self.pts = points;
 		return self.root;
-
+	"""
+	name: queuryNNwrap()
+	purpose: wrapper function for querying nearest neighbors
+	postcondition: nearest neighbors of input are plotted
+	"""
 	def queuryNNwrap(self, queury, n):
 		## Plotting ##
 		self.currentAxis = plt.gca();
@@ -104,7 +127,12 @@ class kdtree:
 		## -------- ##
 		NNs = self.queuryNN(queury, n, self.root);
 		return NNs;
-
+		return self.root;
+	"""
+	name: queuryNN()
+	purpose: use best bin first search on the kd tree for nearest neighbors, plotting the bins as well as the points as they are being examined
+	postcondition: nearest neighbors are found using BBF and plotted. The bins and points that were plotted are returned
+	"""
 	def queuryNN(self, queury, n, root):
 		self.stepmode = True
 		distances = [];

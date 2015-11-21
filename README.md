@@ -4,4 +4,4 @@ Creating a toolkit for algorithms in Computational Geometry
 - 2D Map
 - Graham's Scan for convex hull
 - Gift Wrap for convex hull
-- Fortune's sweep line algorithm for Voronoi Diagrams
+- KD tree for nearest neighbor queries

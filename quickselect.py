@@ -1,3 +1,4 @@
+# Quickselect implementation taken from Rosetta Code
 import random
  
 def partition(vector, dim, left, right, pivotIndex):
@@ -27,7 +28,7 @@ def _select(vector, dim, left, right, k):
  
 def select(vector, k, dim, left=None, right=None):
     """\
-    Returns the k-th smallest, (k >= 0), element of vector within vector[left:right+1].
+    Returns the k-th smallest, (k >= 0), element within vector[left:right+1].
     left, right default to (0, len(vector) - 1) if omitted
     """
     if left is None:

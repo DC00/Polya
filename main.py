@@ -34,10 +34,11 @@ def main_menu():
 """
 name: seed()
 purpose: populate the plot with points
-postcondition: 100 points are added in random positions in the range 0 to 10 for x and y
+postcondition: 100 points are added in uniformly random positions in the range 0 to 10 for x and y
 """
 def seed():
 	print("Seeding graph...")
+	print("Exit the window to continue")
 	global xs;
 	global ys;
 	xs = (rand(100)*10).tolist()
@@ -68,6 +69,7 @@ def custom():
 	plt.xlim([-2, 12]);
 	p = customPointPlacer(fig, ax, xs, ys)
 	print("Press i to insert, press r to randomized insert")
+	print("Exit the window to continue")
 	
 	canvas = fig.canvas
 	canvas.mpl_connect('key_press_event', p.key_press_callback)
