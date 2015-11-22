@@ -1,5 +1,5 @@
 # Polya
-Creating a toolkit for algorithms in Computational Geometry
+A Computational Geometry Sandbox
 - Menu Interface
 - 2D Map
 - Graham's Scan for convex hull
