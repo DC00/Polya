@@ -1,5 +1,5 @@
 # Polya
-A Computational Geometry Sandbox
+#### A Computational Geometry Sandbox
 - Menu Interface
 - 2D Map
 - Graham's Scan for convex hull
@@ -13,5 +13,5 @@ Prerequisites: Python 3
 3. Run the algorithm of your choosing.
 Note: Algorithms start out in step mode, entering any key will advance to the next step. Entering 'c' will play the algorithm out to completion.
 
-Gifs!!
+#### Gifs!! <br>
 ![Graham's Scan](http://i.imgur.com/hPJlCJV.gif)
