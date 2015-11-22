@@ -12,3 +12,6 @@ Prerequisites: Python 3
 2. Use randomly generated points or create your own point set
 3. Run the algorithm of your choosing.
 Note: Algorithms start out in step mode, entering any key will advance to the next step. Entering 'c' will play the algorithm out to completion.
+
+Gifs!!
+![Graham's Scan](http://i.imgur.com/hPJlCJV.gif)
