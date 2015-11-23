@@ -6,7 +6,7 @@
 - Gift Wrap for convex hull
 - KD tree for nearest neighbor queries
 
-Prerequisites: Python 3
+Prerequisites: Python 3, matplotlib
 
 1. Run the toolkit with <code>$ python main.py</code>
 2. Use randomly generated points or create your own point set
